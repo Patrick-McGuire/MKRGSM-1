@@ -78,6 +78,11 @@ public:
    */
   void flush();
 
+  /** Read sender number phone
+      @param timeout   timeout in ms for endSMS()
+   */
+  void setSendTimeout(int timeout); 
+
 private:
   bool _synch;
   int _state;
@@ -85,6 +90,7 @@ private:
   int _smsDataIndex;
   int _smsDataEndIndex;
   bool _smsTxActive;
+  int _smsSendTimeout;
 };
 
 #endif

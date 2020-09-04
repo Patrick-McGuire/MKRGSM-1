@@ -30,7 +30,8 @@ enum {
 GSM_SMS::GSM_SMS(bool synch) :
   _synch(synch),
   _state(SMS_STATE_IDLE),
-  _smsTxActive(false)
+  _smsTxActive(false),
+  _smsSendTimeout(0)
 {
 }
 
@@ -90,6 +91,7 @@ int GSM_SMS::ready()
 
 int GSM_SMS::endSMS()
 {
+  unsigned long start = millis();
   int r;
 
   if (_smsTxActive) {
@@ -97,6 +99,9 @@ int GSM_SMS::endSMS()
 
     if (_synch) {
       while ((r = MODEM.ready()) == 0) {
+	if(_smsSendTimeout != 0 && millis() - start > _smsSendTimeout) {
+          return 3;
+        }
         delay(100);
       }
     } else {
@@ -221,3 +226,10 @@ void GSM_SMS::flush()
     }
   }
 }
+
+void GSM_SMS::setSendTimeout(int timeout)
+{
+  _smsSendTimeout = timeout;
+}
+
+

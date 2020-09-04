@@ -35,6 +35,7 @@ retrieveCallingNumber	KEYWORD2
 beginSMS	KEYWORD2
 endSMS	KEYWORD2
 remoteNumber	KEYWORD2
+setSendTimeout	KEYWORD2
 attachGPRS	KEYWORD2
 begnWrite	KEYWORD2
 endWrite	KEYWORD2
